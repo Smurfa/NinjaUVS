@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaUVS", "NinjaUVS.csproj", "{7D790A19-074E-4B21-A6D1-9DEAD146128E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataImporter", "..\DataImporter\DataImporter.csproj", "{9762C10A-3F67-4C17-AFE3-38C796C417DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7D790A19-074E-4B21-A6D1-9DEAD146128E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D790A19-074E-4B21-A6D1-9DEAD146128E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D790A19-074E-4B21-A6D1-9DEAD146128E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9762C10A-3F67-4C17-AFE3-38C796C417DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9762C10A-3F67-4C17-AFE3-38C796C417DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9762C10A-3F67-4C17-AFE3-38C796C417DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9762C10A-3F67-4C17-AFE3-38C796C417DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
