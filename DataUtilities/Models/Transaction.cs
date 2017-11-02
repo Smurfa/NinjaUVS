@@ -1,4 +1,4 @@
-﻿namespace DataUtilities.Model
+﻿namespace DataUtilities.Models
 {
     public class Transaction
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using DataUtilities;
 using DataUtilities.Csv;
-using DataUtilities.Model;
+using DataUtilities.Models;
 using NLog;
 
 namespace NinjaUVS

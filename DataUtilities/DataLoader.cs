@@ -2,8 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DataUtilities;
-using DataUtilities.Model;
+using DataUtilities.Models;
 
 namespace DataUtilities
 {

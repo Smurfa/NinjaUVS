@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using CsvHelper;
 using CsvHelper.Configuration;
-using DataUtilities.Model;
+using DataUtilities.Models;
 
 namespace DataUtilities.Csv
 {

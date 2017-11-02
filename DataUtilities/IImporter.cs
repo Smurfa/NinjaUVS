@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DataUtilities.Model;
+using DataUtilities.Models;
 
 namespace DataUtilities
 {
