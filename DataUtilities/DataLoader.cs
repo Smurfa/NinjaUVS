@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using DataUtilities;
 using DataUtilities.Model;
 
-namespace NinjaUVS
+namespace DataUtilities
 {
     public class DataLoader
     {
@@ -16,15 +16,15 @@ namespace NinjaUVS
             _importer = importer;
         }
         
-        public IEnumerable<Transaction> LoadTransactions()
+        public IEnumerable<Transaction> LoadTransactions(string path)
         {
-            return _importer.ReadTransactions(Properties.Settings.Default.TransactionPath);
+            return _importer.ReadTransactions(path);
         }
         
 
-        public IDictionary<string, IEnumerable<ShareHistoryPoint>> LoadSharesHistory()
+        public IDictionary<string, IEnumerable<ShareHistoryPoint>> LoadSharesHistory(string directory)
         {
-            return Directory.GetFiles(Properties.Settings.Default.HistoryPath)
+            return Directory.GetFiles(directory)
                 .ToDictionary(GetShareNameFromFile, _importer.ReadShareHistoryPoints);
         }
 

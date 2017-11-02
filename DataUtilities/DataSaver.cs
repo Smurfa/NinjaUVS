@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using DataUtilities;
 
-namespace NinjaUVS
+namespace DataUtilities
 {
     public class DataSaver
     {

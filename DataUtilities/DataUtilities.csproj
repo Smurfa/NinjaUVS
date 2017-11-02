@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Csv\CsvExporter.cs" />
+    <Compile Include="DataLoader.cs" />
+    <Compile Include="DataSaver.cs" />
     <Compile Include="IExporter.cs" />
     <Compile Include="IImporter.cs" />
     <Compile Include="Model\Ownership.cs" />

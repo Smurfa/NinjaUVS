@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DataUtilities;
 using DataUtilities.Csv;
 using DataUtilities.Model;
 using NLog;
@@ -29,8 +30,8 @@ namespace NinjaUVS
 
         private static void LoadData(DataLoader loader)
         {
-            _shares = loader.LoadSharesHistory();
-            _transactions = loader.LoadTransactions();
+            _shares = loader.LoadSharesHistory(Properties.Settings.Default.HistoryPath);
+            _transactions = loader.LoadTransactions(Properties.Settings.Default.TransactionPath);
         }
     }
 }
