@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using DataUtilities.Csv;
 using DataUtilities.Model;
+using NLog;
 
 namespace NinjaUVS
 {
     internal class Program
     {
+        private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private static IDictionary<string, IEnumerable<ShareHistoryPoint>> _shares;
         private static IEnumerable<Transaction> _transactions;
 
         internal static void Main(string[] args)
         {
-            var loader = new DataLoader(new CsvImporter());
-            LoadData(loader);
+            try
+            {
+                Logger.Log(LogLevel.Info, "Starting up");
+                var loader = new DataLoader(new CsvImporter());
+                LoadData(loader);
+                Logger.Log(LogLevel.Info, "Shutting down");
+            }
+            catch (Exception e)
+            {
+                Logger.Log(LogLevel.Error, e);
+            }
         }
 
         private static void LoadData(DataLoader loader)
