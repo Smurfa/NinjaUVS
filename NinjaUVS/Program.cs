@@ -18,8 +18,8 @@ namespace NinjaUVS
 
         private static void LoadData(DataLoader loader)
         {
-            _shares = loader.GetSharesHistory();
-            _transactions = loader.GetTransactions();
+            _shares = loader.LoadSharesHistory();
+            _transactions = loader.LoadTransactions();
         }
     }
 }

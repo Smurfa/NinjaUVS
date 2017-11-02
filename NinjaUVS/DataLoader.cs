@@ -16,13 +16,13 @@ namespace NinjaUVS
             _importer = importer;
         }
         
-        public IEnumerable<Transaction> GetTransactions()
+        public IEnumerable<Transaction> LoadTransactions()
         {
             return _importer.ReadTransactions(Properties.Settings.Default.TransactionPath);
         }
         
 
-        public IDictionary<string, IEnumerable<ShareHistoryPoint>> GetSharesHistory()
+        public IDictionary<string, IEnumerable<ShareHistoryPoint>> LoadSharesHistory()
         {
             return Directory.GetFiles(Properties.Settings.Default.HistoryPath)
                 .ToDictionary(GetShareNameFromFile, _importer.ReadShareHistoryPoints);
