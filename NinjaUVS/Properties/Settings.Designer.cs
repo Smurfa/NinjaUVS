@@ -25,10 +25,19 @@ namespace NinjaUVS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\History")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Input\\History")]
         public string HistoryPath {
             get {
                 return ((string)(this["HistoryPath"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Input")]
+        public string TransactionPath {
+            get {
+                return ((string)(this["TransactionPath"]));
             }
         }
     }

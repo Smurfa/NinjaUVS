@@ -3,7 +3,10 @@
   <Profiles />
   <Settings>
     <Setting Name="HistoryPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\History</Value>
+      <Value Profile="(Default)">C:\Input\History</Value>
+    </Setting>
+    <Setting Name="TransactionPath" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">C:\Input</Value>
     </Setting>
   </Settings>
 </SettingsFile>
