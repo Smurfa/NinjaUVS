@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using CsvHelper;
 using CsvHelper.Configuration;
 using DataUtilities.Model;
 
 namespace DataUtilities.Csv
 {
-    public class CsvImporter
+    public class CsvImporter : IImporter
     {
         public IEnumerable<ShareHistoryPoint> ReadShareHistoryPoints(string filepath)
         {

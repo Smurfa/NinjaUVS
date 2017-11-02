@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IImporter.cs" />
     <Compile Include="Model\Ownership.cs" />
     <Compile Include="Model\ShareHistoryPoint.cs" />
     <Compile Include="Csv\CsvImporter.cs" />
