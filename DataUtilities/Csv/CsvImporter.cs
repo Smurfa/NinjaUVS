@@ -7,13 +7,13 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using CsvHelper;
 using CsvHelper.Configuration;
-using DataImporter.Model;
+using DataUtilities.Model;
 
-namespace DataImporter.Csv
+namespace DataUtilities.Csv
 {
     public class CsvImporter
     {
-        public IEnumerable<ShareHistoryPoint> ReadShareHistoryPoints(string filepath, string name)
+        public IEnumerable<ShareHistoryPoint> ReadShareHistoryPoints(string filepath)
         {
             using (var streamReader = File.OpenText(filepath))
             using (var csvReader = new CsvReader(streamReader, new Configuration { Delimiter = ";", CultureInfo = new CultureInfo("sv-SE") }))

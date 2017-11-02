@@ -54,7 +54,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -62,9 +64,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DataImporter\DataImporter.csproj">
+    <ProjectReference Include="..\DataUtilities\DataUtilities.csproj">
       <Project>{9762c10a-3f67-4c17-afe3-38c796c417dd}</Project>
-      <Name>DataImporter</Name>
+      <Name>DataUtilities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -34,7 +34,7 @@ namespace NinjaUVS.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Input")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Input\\Transactions.csv")]
         public string TransactionPath {
             get {
                 return ((string)(this["TransactionPath"]));

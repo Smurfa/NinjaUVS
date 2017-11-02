@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataImporter.Model
+namespace DataUtilities.Model
 {
     public class ShareHistoryPoint
     {

@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaUVS", "NinjaUVS.csproj", "{7D790A19-074E-4B21-A6D1-9DEAD146128E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataImporter", "..\DataImporter\DataImporter.csproj", "{9762C10A-3F67-4C17-AFE3-38C796C417DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUtilities", "..\DataUtilities\DataUtilities.csproj", "{9762C10A-3F67-4C17-AFE3-38C796C417DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

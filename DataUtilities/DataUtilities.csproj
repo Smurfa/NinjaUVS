@@ -7,8 +7,8 @@
     <ProjectGuid>{9762C10A-3F67-4C17-AFE3-38C796C417DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataImporter</RootNamespace>
-    <AssemblyName>DataImporter</AssemblyName>
+    <RootNamespace>DataUtilities</RootNamespace>
+    <AssemblyName>DataUtilities</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

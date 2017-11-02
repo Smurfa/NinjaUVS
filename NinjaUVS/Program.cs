@@ -5,8 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using DataImporter.Csv;
-using DataImporter.Model;
+using DataUtilities.Csv;
+using DataUtilities.Model;
 
 namespace NinjaUVS
 {
@@ -19,14 +19,14 @@ namespace NinjaUVS
             var transactions = LoadTransactions(importer);
 
 
+
             var i = 0;
         }
 
         private static IDictionary<string, IEnumerable<ShareHistoryPoint>> LoadSharesHistory(CsvImporter importer)
         {
             return Directory.GetFiles(Properties.Settings.Default.HistoryPath)
-                .ToDictionary(GetShareNameFromFile, file =>
-                    importer.ReadShareHistoryPoints(file, Path.GetFileName(file).Substring(0, 4)));
+                .ToDictionary(GetShareNameFromFile, importer.ReadShareHistoryPoints);
         }
 
         private static string GetShareNameFromFile(string path)

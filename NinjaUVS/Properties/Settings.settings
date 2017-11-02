@@ -6,7 +6,7 @@
       <Value Profile="(Default)">C:\Input\History</Value>
     </Setting>
     <Setting Name="TransactionPath" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">C:\Input</Value>
+      <Value Profile="(Default)">C:\Input\Transactions.csv</Value>
     </Setting>
   </Settings>
 </SettingsFile>
