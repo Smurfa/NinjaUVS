@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Ownership.cs" />
     <Compile Include="Model\ShareHistoryPoint.cs" />
     <Compile Include="Csv\CsvImporter.cs" />
+    <Compile Include="Model\Subscription.cs" />
     <Compile Include="Model\Transaction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
