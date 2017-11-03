@@ -48,11 +48,13 @@
     <Compile Include="DataSaver.cs" />
     <Compile Include="IExporter.cs" />
     <Compile Include="IImporter.cs" />
+    <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\Ownership.cs" />
+    <Compile Include="Models\Purchase.cs" />
     <Compile Include="Models\ShareHistoryPoint.cs" />
     <Compile Include="Csv\CsvImporter.cs" />
     <Compile Include="Models\Subscription.cs" />
-    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Models\TransactionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

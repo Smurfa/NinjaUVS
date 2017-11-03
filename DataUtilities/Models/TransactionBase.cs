@@ -1,8 +1,10 @@
-﻿namespace DataUtilities.Models
+﻿using System;
+
+namespace DataUtilities.Models
 {
-    public class Transaction
+    public abstract class TransactionBase
     {
-        public string TransactionType { get; set; }
+        public DateTime Date { get; set; }
         public string Name { get; set; }
         public float Amount { get; set; }
         public string Currency { get; set; }

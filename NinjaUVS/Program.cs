@@ -11,7 +11,7 @@ namespace NinjaUVS
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private static IDictionary<string, IEnumerable<ShareHistoryPoint>> _shares;
-        private static IEnumerable<Transaction> _transactions;
+        private static IEnumerable<TransactionBase> _transactions;
 
         internal static void Main(string[] args)
         {

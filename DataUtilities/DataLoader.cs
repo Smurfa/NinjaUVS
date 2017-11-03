@@ -15,7 +15,7 @@ namespace DataUtilities
             _importer = importer;
         }
         
-        public IEnumerable<Transaction> LoadTransactions(string path)
+        public IEnumerable<TransactionBase> LoadTransactions(string path)
         {
             return _importer.ReadTransactions(path);
         }
