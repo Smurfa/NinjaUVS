@@ -20,6 +20,10 @@ namespace NinjaUVS
                 Logger.Log(LogLevel.Info, "Starting up");
                 var loader = new DataLoader(new CsvImporter());
                 LoadData(loader);
+
+                var calcSubscriptions = new SubscriptionAlgorithm(_transactions, _shares);
+                _subscriptions = calcSubscriptions.RunTransactions();
+                
                 Logger.Log(LogLevel.Info, "Shutting down");
             }
             catch (Exception e)
