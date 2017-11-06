@@ -39,7 +39,7 @@ namespace DataUtilities.Csv
         public IEnumerable<TransactionBase> ReadTransactions(string filepath)
         {
             using (var streamReader = File.OpenText(filepath))
-            using (var csvReader = new CsvReader(streamReader, new Configuration { Delimiter = ",", CultureInfo = new CultureInfo("sv-SE") }))
+            using (var csvReader = new CsvReader(streamReader, new Configuration { Delimiter = ";", CultureInfo = new CultureInfo("sv-SE") }))
             {
                 var list = new List<TransactionBase>();
                 foreach (var record in csvReader.GetRecords<dynamic>())
@@ -58,6 +58,18 @@ namespace DataUtilities.Csv
                                 list.Add(NewPurchase(csvReader));
                                 break;
                             }
+                        case "Dividend":
+                        case "Utdelning":
+                            {
+                                list.Add(NewDividend(csvReader));
+                                break;
+                            }
+                        case "Sale":
+                        case "Sälj":
+                            {
+                                list.Add(NewSale(csvReader));
+                                break;
+                            }
                         default:
                             {
                                 _logger.Log(LogLevel.Warn, $"Unknown transaction type: {csvReader.GetField<string>(2)}");
@@ -69,27 +81,53 @@ namespace DataUtilities.Csv
             }
         }
 
-        private static Deposit NewDeposit(IReaderRow reader)
+        private static Deposit NewDeposit(IReaderRow row)
         {
             return new Deposit
             {
-                Date = reader.GetField<DateTime>(0),
-                Amount = reader.GetField<float>(6),
-                Currency = reader.GetField<string>(7),
-                Name = reader.GetField<string>(3)
+                Date = row.GetField<DateTime>(0),
+                Amount = row.GetField<float>(6),
+                Currency = row.GetField<string>(8),
+                Name = row.GetField<string>(3)
             };
         }
 
-        private static Purchase NewPurchase(IReaderRow reader)
+        private static Purchase NewPurchase(IReaderRow row)
         {
             return new Purchase
             {
-                Date = reader.GetField<DateTime>(0),
-                Amount = reader.GetField<float>(6),
-                Currency = reader.GetField<string>(7),
-                Name = reader.GetField<string>(3),
-                NumOfShares = reader.GetField<int>(4),
-                SharePrice = reader.GetField<float>(5)
+                Date = row.GetField<DateTime>(0),
+                Amount = row.GetField<float>(6),
+                Currency = row.GetField<string>(8),
+                Name = row.GetField<string>(3),
+                NumOfShares = row.GetField<int>(4),
+                SharePrice = row.GetField<float>(5)
+            };
+        }
+
+        private static Sale NewSale(IReaderRow row)
+        {
+            return new Sale
+            {
+                Date = row.GetField<DateTime>(0),
+                Amount = row.GetField<float>(6),
+                Currency = row.GetField<string>(8),
+                Name = row.GetField<string>(3),
+                NumOfShares = row.GetField<int>(4),
+                SharePrice = row.GetField<float>(5)
+            };
+        }
+
+        private static Dividend NewDividend(IReaderRow row)
+        {
+            return new Dividend
+            {
+                Date = row.GetField<DateTime>(0),
+                Amount = row.GetField<float>(6),
+                Currency = row.GetField<string>(8),
+                Name = row.GetField<string>(3),
+                NumOfShares = row.GetField<int>(4),
+                SharePrice = row.GetField<float>(5)
             };
         }
     }

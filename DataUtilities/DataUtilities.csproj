@@ -53,10 +53,12 @@
     <Compile Include="IImporter.cs" />
     <Compile Include="Models\Transactions\Deposit.cs" />
     <Compile Include="Models\Ownership.cs" />
+    <Compile Include="Models\Transactions\Dividend.cs" />
     <Compile Include="Models\Transactions\Purchase.cs" />
     <Compile Include="Models\ShareHistoryPoint.cs" />
     <Compile Include="Csv\CsvImporter.cs" />
     <Compile Include="Models\Subscription.cs" />
+    <Compile Include="Models\Transactions\Sale.cs" />
     <Compile Include="Models\Transactions\TransactionBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
