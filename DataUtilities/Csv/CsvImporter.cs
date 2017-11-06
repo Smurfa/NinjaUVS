@@ -5,12 +5,20 @@ using System.IO;
 using System.Linq;
 using CsvHelper;    
 using CsvHelper.Configuration;
+using NLog;
 using DataUtilities.Models;
 
 namespace DataUtilities.Csv
 {
     public class CsvImporter : IImporter
     {
+        private readonly ILogger _logger;
+
+        public CsvImporter(ILogger logger)
+        {
+            _logger = logger;
+        }
+
         public IEnumerable<ShareHistoryPoint> ReadShareHistoryPoints(string filepath)
         {
             using (var streamReader = File.OpenText(filepath))

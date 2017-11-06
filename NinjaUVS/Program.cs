@@ -22,8 +22,8 @@ namespace NinjaUVS
         {
             try
             {
-                Logger.Log(LogLevel.Info, "Starting up");
-                var loader = new DataLoader(new CsvImporter());
+                Logger.Log(LogLevel.Info, "Start...");
+                var loader = new DataLoader(new CsvImporter(Logger));
                 LoadData(loader);
 
                 var calcSubscriptions = new SubscriptionAlgorithm(_transactions, _shares);
@@ -31,9 +31,9 @@ namespace NinjaUVS
 
                 _ownerships = SummarizeOwnerships(_subscriptions);
 
-                var savior = new DataSaver(new CsvExporter()); // :DD
+                var savior = new DataSaver(new CsvExporter(Logger)); // :DD
                 SaveData(savior);
-                Logger.Log(LogLevel.Info, "Shutting down");
+                Logger.Log(LogLevel.Info, "Done");
             }
             catch (Exception e)
             {
