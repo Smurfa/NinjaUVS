@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using DataUtilities.Models;
+using DataUtilities.Models.Transactions;
 
 namespace DataUtilities
 {

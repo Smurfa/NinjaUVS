@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataUtilities.Models
+﻿namespace DataUtilities.Models.Transactions
 {
     public class Purchase : TransactionBase
     {

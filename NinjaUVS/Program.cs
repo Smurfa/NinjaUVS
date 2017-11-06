@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using DataUtilities;
 using DataUtilities.Csv;
 using DataUtilities.Models;
+using DataUtilities.Models.Transactions;
 using NLog;
 
 namespace NinjaUVS

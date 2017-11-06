@@ -7,6 +7,7 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using NLog;
 using DataUtilities.Models;
+using DataUtilities.Models.Transactions;
 
 namespace DataUtilities.Csv
 {

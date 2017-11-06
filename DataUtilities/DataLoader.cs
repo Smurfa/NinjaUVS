@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DataUtilities.Models;
+using DataUtilities.Models.Transactions;
 
 namespace DataUtilities
 {

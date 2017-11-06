@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace DataUtilities.Models
+namespace DataUtilities.Models.Transactions
 {
     public abstract class TransactionBase
     {

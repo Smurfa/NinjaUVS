@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataUtilities.Models;
+using DataUtilities.Models.Transactions;
 
 namespace NinjaUVS
 {
@@ -16,7 +17,8 @@ namespace NinjaUVS
 
         private readonly IDictionary<string, int> _sharesCount;
 
-        public SubscriptionAlgorithm(IEnumerable<TransactionBase> transactions, IDictionary<string, IEnumerable<ShareHistoryPoint>> sharesHistory)
+        public SubscriptionAlgorithm(IEnumerable<TransactionBase> transactions,
+            IDictionary<string, IEnumerable<ShareHistoryPoint>> sharesHistory)
         {
             _transactions = transactions;
             _sharesHistory = sharesHistory;
