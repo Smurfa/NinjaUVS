@@ -44,27 +44,53 @@ namespace DataUtilities.Csv
                 var list = new List<TransactionBase>();
                 foreach (var record in csvReader.GetRecords<dynamic>())
                 {
-                    TransactionBase transaction;
-                    if (csvReader.GetField<string>(2) == "Deposit")
+                    switch (csvReader.GetField<string>(2))
                     {
-                        transaction = new Deposit();
+                        case "Deposit":
+                        case "Insättning":
+                            {
+                                list.Add(NewDeposit(csvReader));
+                                break;
+                            }
+                        case "Purchase":
+                        case "Köp":
+                            {
+                                list.Add(NewPurchase(csvReader));
+                                break;
+                            }
+                        default:
+                            {
+                                _logger.Log(LogLevel.Warn, $"Unknown transaction type: {csvReader.GetField<string>(2)}");
+                                break;
+                            }
                     }
-                    else
-                    {
-                        transaction = new Purchase
-                        {
-                            NumOfShares = csvReader.GetField<int>(4),
-                            SharePrice = csvReader.GetField<float>(5)
-                        };
-                    }
-                    transaction.Date = csvReader.GetField<DateTime>(0);
-                    transaction.Amount = csvReader.GetField<float>(6);
-                    transaction.Currency = csvReader.GetField<string>(7);
-                    transaction.Name = csvReader.GetField<string>(3);
-                    list.Add(transaction);
                 }
                 return list;
             }
+        }
+
+        private static Deposit NewDeposit(IReaderRow reader)
+        {
+            return new Deposit
+            {
+                Date = reader.GetField<DateTime>(0),
+                Amount = reader.GetField<float>(6),
+                Currency = reader.GetField<string>(7),
+                Name = reader.GetField<string>(3)
+            };
+        }
+
+        private static Purchase NewPurchase(IReaderRow reader)
+        {
+            return new Purchase
+            {
+                Date = reader.GetField<DateTime>(0),
+                Amount = reader.GetField<float>(6),
+                Currency = reader.GetField<string>(7),
+                Name = reader.GetField<string>(3),
+                NumOfShares = reader.GetField<int>(4),
+                SharePrice = reader.GetField<float>(5)
+            };
         }
     }
 }
