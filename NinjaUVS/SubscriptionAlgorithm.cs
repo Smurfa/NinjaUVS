@@ -34,22 +34,22 @@ namespace NinjaUVS
             var subscriptions = new List<Subscription>();
             foreach (var transaction in _transactions)
             {
-                if (transaction is Purchase)
+                if (transaction is ClubTransaction)
                 {
-                    NewPurchase(transaction);
+                    subscriptions.Add(ClubTransaction(transaction));
                 }
                 else
                 {
-                    subscriptions.Add(NewSubscription(transaction));
+                    MarketTransaction(transaction);
                 }
             }
             return subscriptions;
         }
 
-        private void NewPurchase(TransactionBase transaction)
+        private void MarketTransaction(TransactionBase transaction)
         {
             _transactionsSum += transaction.Amount;
-            _sharesCount[transaction.Name] += (transaction as Purchase).NumOfShares;
+            _sharesCount[transaction.Name] += (transaction as MarketTransaction).NumOfShares;
         }
 
         private float CalculateMarketValue(DateTime date)
@@ -61,9 +61,9 @@ namespace NinjaUVS
                     .ClosingValue * _sharesCount[key] + current);
         }
         
-        private Subscription NewSubscription(TransactionBase transaction)
+        private Subscription ClubTransaction(TransactionBase transaction)
         {
-            var deposit = transaction as Deposit;
+            var deposit = transaction as ClubTransaction;
             var marketValue = CalculateMarketValue(deposit.Date);
             var unitValue = _clubUnits == 0 ? 100.0f : (_transactionsSum + marketValue) / _clubUnits;
             var purchasedUnits = deposit.Amount / unitValue;

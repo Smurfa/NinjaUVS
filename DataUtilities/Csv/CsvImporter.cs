@@ -41,6 +41,7 @@ namespace DataUtilities.Csv
             using (var streamReader = File.OpenText(filepath))
             using (var csvReader = new CsvReader(streamReader, new Configuration { Delimiter = ";", CultureInfo = new CultureInfo("sv-SE") }))
             {
+                csvReader.Read();
                 var list = new List<TransactionBase>();
                 foreach (var record in csvReader.GetRecords<dynamic>())
                 {
@@ -49,25 +50,17 @@ namespace DataUtilities.Csv
                         case "Deposit":
                         case "Insättning":
                             {
-                                list.Add(NewDeposit(csvReader));
+                                list.Add(NewClubTransaction(csvReader));
                                 break;
                             }
                         case "Purchase":
-                        case "Köp":
-                            {
-                                list.Add(NewPurchase(csvReader));
-                                break;
-                            }
                         case "Dividend":
-                        case "Utdelning":
-                            {
-                                list.Add(NewDividend(csvReader));
-                                break;
-                            }
                         case "Sale":
+                        case "Köp":
+                        case "Utdelning":
                         case "Sälj":
                             {
-                                list.Add(NewSale(csvReader));
+                                list.Add(NewMarketTransaction(csvReader));
                                 break;
                             }
                         default:
@@ -81,9 +74,9 @@ namespace DataUtilities.Csv
             }
         }
 
-        private static Deposit NewDeposit(IReaderRow row)
+        private static ClubTransaction NewClubTransaction(IReaderRow row)
         {
-            return new Deposit
+            return new ClubTransaction
             {
                 Date = row.GetField<DateTime>(0),
                 Amount = row.GetField<float>(6),
@@ -92,35 +85,9 @@ namespace DataUtilities.Csv
             };
         }
 
-        private static Purchase NewPurchase(IReaderRow row)
+        private static MarketTransaction NewMarketTransaction(IReaderRow row)
         {
-            return new Purchase
-            {
-                Date = row.GetField<DateTime>(0),
-                Amount = row.GetField<float>(6),
-                Currency = row.GetField<string>(8),
-                Name = row.GetField<string>(3),
-                NumOfShares = row.GetField<int>(4),
-                SharePrice = row.GetField<float>(5)
-            };
-        }
-
-        private static Sale NewSale(IReaderRow row)
-        {
-            return new Sale
-            {
-                Date = row.GetField<DateTime>(0),
-                Amount = row.GetField<float>(6),
-                Currency = row.GetField<string>(8),
-                Name = row.GetField<string>(3),
-                NumOfShares = row.GetField<int>(4),
-                SharePrice = row.GetField<float>(5)
-            };
-        }
-
-        private static Dividend NewDividend(IReaderRow row)
-        {
-            return new Dividend
+            return new MarketTransaction
             {
                 Date = row.GetField<DateTime>(0),
                 Amount = row.GetField<float>(6),
