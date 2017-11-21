@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using CsvHelper;    
 using CsvHelper.Configuration;
 using NLog;
@@ -42,6 +43,7 @@ namespace DataUtilities.Csv
             using (var csvReader = new CsvReader(streamReader, new Configuration { Delimiter = ";", CultureInfo = new CultureInfo("sv-SE") }))
             {
                 csvReader.Read();
+                csvReader.ReadHeader();
                 var list = new List<TransactionBase>();
                 foreach (var record in csvReader.GetRecords<dynamic>())
                 {
