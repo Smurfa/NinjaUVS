@@ -26,7 +26,7 @@ namespace NinjaUVS
                 var loader = new DataLoader(new CsvImporter(Logger));
                 LoadData(loader);
 
-                var calcSubscriptions = new SubscriptionAlgorithm(_transactions.OrderBy(x => x.Date), _shares);
+                var calcSubscriptions = new SubscriptionAlgorithm(_transactions.Reverse(), _shares);
                 _subscriptions = calcSubscriptions.RunTransactions();
 
                 _ownerships = SummarizeOwnerships(_subscriptions);
