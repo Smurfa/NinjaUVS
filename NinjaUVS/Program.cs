@@ -44,7 +44,7 @@ namespace NinjaUVS
         private static void LoadData(DataLoader loader)
         {
             _shares = loader.LoadSharesHistory(Properties.Settings.Default.HistoryPath);
-            _transactions = loader.LoadTransactions(Properties.Settings.Default.TransactionPath);
+            _transactions = loader.LoadTransactions(Properties.Settings.Default.TransactionFile);
         }
 
         private static void SaveData(DataSaver saver)
