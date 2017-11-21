@@ -31,8 +31,7 @@ namespace DataUtilities
         private static string GetShareNameFromFile(string path)
         {
             var filename = Path.GetFileName(path);
-            var shareName = Regex.Match(filename, @"^[^0-9]*").ToString();
-            return shareName.Substring(0, shareName.Length - 1);
+            return Regex.Match(filename, @"^[A-Za-z0-9\s]*[^-]").ToString();
         }
     }
 }
