@@ -48,7 +48,7 @@ namespace NinjaUVS
 
         private static void SaveData(DataSaver saver)
         {
-            saver.Save(_ownerships, "Ownership.csv");
+            saver.Save(_ownerships.OrderBy(x => x.Name), "Ownership.csv");
             saver.Save(_subscriptions, "Subscriptions.csv");
         }
 
