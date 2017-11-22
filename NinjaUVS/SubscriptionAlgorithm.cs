@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataUtilities.Models;
+using NLog;
 
 namespace NinjaUVS
 {
@@ -15,7 +16,8 @@ namespace NinjaUVS
         private float? _clubUnits;
 
         private readonly IDictionary<string, int?> _sharesCount;
-
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+        
         public SubscriptionAlgorithm(IEnumerable<Transaction> transactions,
             IDictionary<string, IEnumerable<ShareHistoryPoint>> sharesHistory)
         {
@@ -57,7 +59,7 @@ namespace NinjaUVS
                         }
                     default:
                         {
-                            //TODO: Log that shit
+                            _logger.Log(LogLevel.Warn, $"Unknown transaction type '{transaction.TransactionType}' for '{transaction.Description}'");
                             break; 
                         }
                 }
@@ -101,14 +103,6 @@ namespace NinjaUVS
 
             return (_transactionsSum + marketAssets) / _clubUnits;
         }
-
-        //private void CalculateAccountAssets(float? transaction)
-        //{
-        //    if (_transactionsSum == null)
-        //    {
-        //        _transactionsSum = transaction;
-        //    }
-        //}
         
         private Subscription AccountDeposit(Transaction transaction)
         {

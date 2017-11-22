@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Schema;
-using CsvHelper;
+﻿using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 using DataUtilities.Models;
@@ -14,12 +8,7 @@ namespace DataUtilities.Csv
 {
     internal class TransactionTypeConverter : ITypeConverter
     {
-        //private readonly ILogger _logger;
-
-        //public TransactionTypeConverter(ILogger logger)
-        //{
-        //    _logger = logger;
-        //}
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
 
         public string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         {
@@ -57,7 +46,7 @@ namespace DataUtilities.Csv
                     }
                 default:
                     {
-                        //_logger.Log(LogLevel.Warn, $"Unknown transaction type: {text}");
+                        _logger.Log(LogLevel.Warn, $"Unknown transaction type: {text}");
                         return TransactionType.Unknown;
                     }
             }
