@@ -73,7 +73,7 @@ namespace NinjaUVS
         private void MarketBuySell(Transaction transaction)
         {
             _transactionsSum += transaction.Amount;
-            _sharesCount[transaction.Description] += transaction.Count;
+            _sharesCount[transaction.Description] += transaction.NumOfShares;
         }
 
         /// <summary>

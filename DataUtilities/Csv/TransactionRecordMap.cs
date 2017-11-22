@@ -11,7 +11,7 @@ namespace DataUtilities.Csv
             Map(m => m.Account).Name("Konto");
             Map(m => m.TransactionType).Name("Typ av transaktion").TypeConverter<TransactionTypeConverter>();
             Map(m => m.Description).Name("Värdepapper/beskrivning");
-            Map(m => m.Count).Name("Antal").TypeConverter<NanNullIntConverter>();
+            Map(m => m.NumOfShares).Name("Antal").TypeConverter<NanNullIntConverter>();
             Map(m => m.Rate).Name("Kurs").TypeConverter<NanNullFloatConverter>();
             Map(m => m.Amount).Name("Belopp").TypeConverter<NanNullFloatConverter>();
             Map(m => m.BrokerageFee).Name("Courtage").TypeConverter<NanNullIntConverter>();
