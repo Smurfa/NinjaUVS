@@ -2,7 +2,7 @@
 
 namespace DataUtilities.Models
 {
-    public class TransactionRecord
+    public class Transaction
     {
         public DateTime Date { get; set; }
         public string Account { get; set; }

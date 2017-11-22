@@ -62,7 +62,7 @@
     <Compile Include="Csv\CsvImporter.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Transactions\TransactionBase.cs" />
-    <Compile Include="Models\TransactionRecord.cs" />
+    <Compile Include="Models\Transaction.cs" />
     <Compile Include="Models\TransactionType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

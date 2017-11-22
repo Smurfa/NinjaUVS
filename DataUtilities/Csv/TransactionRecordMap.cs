@@ -3,7 +3,7 @@ using DataUtilities.Models;
 
 namespace DataUtilities.Csv
 {
-    internal sealed class TransactionRecordMap : ClassMap<TransactionRecord>
+    internal sealed class TransactionRecordMap : ClassMap<Transaction>
     {
         public TransactionRecordMap()
         {
