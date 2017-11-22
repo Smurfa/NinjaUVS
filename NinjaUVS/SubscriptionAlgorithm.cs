@@ -37,13 +37,11 @@ namespace NinjaUVS
                 switch (transaction.TransactionType)
                 {
                     case TransactionType.Deposit:
+                    case TransactionType.Withdrawal:
+
                         {
                             subscriptions.Add(AccountDeposit(transaction));
                             break;
-                        }
-                    case TransactionType.Withdrawal:
-                        {
-                            throw new NotImplementedException();
                         }
                     case TransactionType.Purchase:
                     case TransactionType.Sale:
