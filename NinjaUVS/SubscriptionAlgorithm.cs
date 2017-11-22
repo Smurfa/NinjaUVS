@@ -11,8 +11,7 @@ namespace NinjaUVS
         private readonly IEnumerable<Transaction> _transactions;
         private readonly IDictionary<string, IEnumerable<ShareHistoryPoint>> _sharesHistory;
 
-        private float? _transactionsSum;
-        private float? _clubAssets;
+        private float? _accountAssets;
         private float? _clubUnits;
 
         private readonly IDictionary<string, int?> _sharesCount;
@@ -74,8 +73,8 @@ namespace NinjaUVS
 
         private void MarketBuySell(Transaction transaction)
         {
-            _transactionsSum += transaction.Amount;
-            _sharesCount[transaction.Description] += transaction.NumOfShares;
+            _accountAssets += transaction?.Amount;
+            _sharesCount[transaction?.Description ?? throw new InvalidOperationException("Transaction description can not be null")] += transaction.NumOfShares;
         }
 
         /// <summary>
@@ -101,7 +100,7 @@ namespace NinjaUVS
             if (_clubUnits == null)
                 return 100.0f;
 
-            return (_transactionsSum + marketAssets) / _clubUnits;
+            return (_accountAssets + marketAssets) / _clubUnits;
         }
         
         private Subscription AccountDeposit(Transaction transaction)
@@ -110,8 +109,8 @@ namespace NinjaUVS
             var unitValue = CalculateUnitValue(marketAssets);
 
             var purchasedUnits = transaction.Amount / unitValue;
-            _transactionsSum = _transactionsSum == null ? transaction.Amount : _transactionsSum + transaction.Amount;
-            _clubAssets = _transactionsSum + marketAssets;
+            _accountAssets = _accountAssets == null ? transaction.Amount : _accountAssets + transaction.Amount;
+            var clubAssets = _accountAssets + marketAssets;
             _clubUnits = _clubUnits == null ? purchasedUnits : _clubUnits + purchasedUnits;
             
             return new Subscription
@@ -120,7 +119,7 @@ namespace NinjaUVS
                 Member = transaction.Description,
                 Payment = transaction.Amount,
                 PurchasedUnits = purchasedUnits,
-                ClubAssets = _clubAssets,
+                ClubAssets = clubAssets,
                 ClubUnits = _clubUnits,
                 UnitValue = unitValue,
                 MarketValue = marketAssets
