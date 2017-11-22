@@ -28,7 +28,7 @@ namespace NinjaUVS
                 var calcSubscriptions = new SubscriptionAlgorithm(_transactions.Reverse(), _shares);
                 _subscriptions = calcSubscriptions.RunTransactions();
 
-                _ownerships = SummarizeOwnerships(_subscriptions);
+                _ownerships = SummarizeOwnerships(_subscriptions, calcSubscriptions.UnitValue);
 
                 var savior = new DataSaver(new CsvExporter(Logger)); // :DD
                 SaveData(savior);
@@ -52,18 +52,25 @@ namespace NinjaUVS
             saver.Save(_subscriptions, "Subscriptions.csv");
         }
 
-        private static IEnumerable<Ownership> SummarizeOwnerships(IEnumerable<Subscription> subscriptions)
+        private static IEnumerable<Ownership> SummarizeOwnerships(IEnumerable<Subscription> subscriptions, float? unitValue)
         {
-            return subscriptions.DistinctBy(x => x.Member)
-                .Select(subscription => new Ownership
+            var members = subscriptions.DistinctBy(x => x.Member).Select(x => x.Member);
+
+            foreach (var member in members)
+            {
+                var units = subscriptions.Where(x => x.Member == member)
+                    .Aggregate<Subscription, float?>(0.0f, (current, next) => current + next.PurchasedUnits);
+                var paid = subscriptions.Where(x => x.Member == member)
+                    .Aggregate<Subscription, float?>(0.0f, (current, next) => current + next.Payment);
+
+                yield return new Ownership
                 {
-                    Name = subscription.Member,
-                    Paid = subscriptions.Where(x => x.Member == subscription.Member)
-                        .Aggregate<Subscription, float?>(0.0f, (current, next) => (current + next.Payment)),
-                    Units = subscriptions.Where(x => x.Member == subscription.Member)
-                        .Aggregate<Subscription, float?>(0.0f, (current, next) => (current + next.PurchasedUnits))
-                })
-                .ToList();
+                    Name = member,
+                    Paid = paid,
+                    Units = units,
+                    TotalValue = units * unitValue
+                };
+            }
         }
     }
 }

@@ -5,5 +5,6 @@
         public string Name { get; set; }
         public float? Paid { get; set; }
         public float? Units { get; set; }
+        public float? TotalValue { get; set; }
     }
 }

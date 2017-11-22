@@ -17,6 +17,8 @@ namespace NinjaUVS
         private readonly IDictionary<string, int?> _sharesCount;
         private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         
+        public float? UnitValue { get; private set; }
+
         public SubscriptionAlgorithm(IEnumerable<Transaction> transactions,
             IDictionary<string, IEnumerable<ShareHistoryPoint>> sharesHistory)
         {
@@ -90,6 +92,11 @@ namespace NinjaUVS
                     .ClosingValue * _sharesCount[key] + current);
         }
 
+        /// <summary>
+        /// Calculates the value of a unit based on the value of the market and account assets (market + account = club assets).
+        /// </summary>
+        /// <param name="marketAssets"></param>
+        /// <returns></returns>
         private float? CalculateUnitValue(float? marketAssets)
         {
             if (marketAssets == null)
@@ -104,9 +111,9 @@ namespace NinjaUVS
         private Subscription AccountDeposit(Transaction transaction)
         {
             var marketAssets = CalculateMarketAssets(transaction.Date);
-            var unitValue = CalculateUnitValue(marketAssets);
+            UnitValue = CalculateUnitValue(marketAssets);
 
-            var purchasedUnits = transaction.Amount / unitValue;
+            var purchasedUnits = transaction.Amount / UnitValue;
             _accountAssets = _accountAssets == null ? transaction.Amount : _accountAssets + transaction.Amount;
             var clubAssets = _accountAssets + marketAssets;
             _clubUnits = _clubUnits == null ? purchasedUnits : _clubUnits + purchasedUnits;
@@ -119,7 +126,7 @@ namespace NinjaUVS
                 PurchasedUnits = purchasedUnits,
                 ClubAssets = clubAssets,
                 ClubUnits = _clubUnits,
-                UnitValue = unitValue,
+                UnitValue = UnitValue,
                 MarketValue = marketAssets
             };
         }
