@@ -3,7 +3,6 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using DataUtilities.Models;
-using DataUtilities.Models.Transactions;
 
 namespace DataUtilities
 {
@@ -16,7 +15,7 @@ namespace DataUtilities
             _importer = importer;
         }
         
-        public IEnumerable<TransactionBase> LoadTransactions(string path)
+        public IEnumerable<Transaction> LoadTransactions(string path)
         {
             return _importer.ReadTransactions(path);
         }

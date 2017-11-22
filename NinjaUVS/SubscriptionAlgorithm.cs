@@ -2,27 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using DataUtilities.Models;
-using DataUtilities.Models.Transactions;
 
 namespace NinjaUVS
 {
     public class SubscriptionAlgorithm
     {
-        private readonly IEnumerable<TransactionBase> _transactions;
+        private readonly IEnumerable<Transaction> _transactions;
         private readonly IDictionary<string, IEnumerable<ShareHistoryPoint>> _sharesHistory;
 
-        private float _transactionsSum;
-        private float _clubAssets;
-        private float _clubUnits;
+        private float? _transactionsSum;
+        private float? _clubAssets;
+        private float? _clubUnits;
 
-        private readonly IDictionary<string, int> _sharesCount;
+        private readonly IDictionary<string, int?> _sharesCount;
 
-        public SubscriptionAlgorithm(IEnumerable<TransactionBase> transactions,
+        public SubscriptionAlgorithm(IEnumerable<Transaction> transactions,
             IDictionary<string, IEnumerable<ShareHistoryPoint>> sharesHistory)
         {
             _transactions = transactions;
             _sharesHistory = sharesHistory;
-            _sharesCount = new Dictionary<string, int>();
+            _sharesCount = new Dictionary<string, int?>();
             foreach (var key in sharesHistory.Keys)
             {
                 _sharesCount.Add(key, 0);
@@ -34,54 +33,103 @@ namespace NinjaUVS
             var subscriptions = new List<Subscription>();
             foreach (var transaction in _transactions)
             {
-                if (transaction is ClubTransaction)
+                switch (transaction.TransactionType)
                 {
-                    subscriptions.Add(ClubTransaction(transaction));
-                }
-                else
-                {
-                    MarketTransaction(transaction);
+                    case TransactionType.Deposit:
+                        {
+                            subscriptions.Add(AccountDeposit(transaction));
+                            break;
+                        }
+                    case TransactionType.Withdrawal:
+                        {
+                            throw new NotImplementedException();
+                        }
+                    case TransactionType.Purchase:
+                    case TransactionType.Sale:
+                        {
+                            MarketBuySell(transaction);
+                            break;
+                        }
+                    case TransactionType.Dividend:
+                        {
+                            AdjustDividend(transaction);
+                            break;
+                        }
+                    default:
+                        {
+                            //TODO: Log that shit
+                            break; 
+                        }
                 }
             }
             return subscriptions;
         }
 
-        private void MarketTransaction(TransactionBase transaction)
+        private void AdjustDividend(Transaction transaction)
         {
             _transactionsSum += transaction.Amount;
-            _sharesCount[transaction.Name] += (transaction as MarketTransaction).NumOfShares;
         }
 
-        private float CalculateMarketValue(DateTime date)
+        private void MarketBuySell(Transaction transaction)
         {
-            return _sharesCount.Keys.Aggregate(0.0f, (current, key) =>
-                _sharesHistory[key].OrderBy(x => x.Date)
+            _transactionsSum += transaction.Amount;
+            _sharesCount[transaction.Description] += transaction.Count;
+        }
+
+        /// <summary>
+        /// Calculates the total value of owned shares for a given date.
+        /// </summary>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        private float? CalculateMarketAssets(DateTime date)
+        {
+            return _sharesCount.Keys.Aggregate<string, float?>(0.0f, (current, key) =>
+                _sharesHistory[key]
+                    .OrderBy(x => x.Date)
                     .TakeWhile(x => x.Date < date)
                     .Last()
                     .ClosingValue * _sharesCount[key] + current);
         }
-        
-        private Subscription ClubTransaction(TransactionBase transaction)
-        {
-            var deposit = transaction as ClubTransaction;
-            var marketValue = CalculateMarketValue(deposit.Date);
-            var unitValue = _clubUnits == 0 ? 100.0f : (_transactionsSum + marketValue) / _clubUnits;
-            var purchasedUnits = deposit.Amount / unitValue;
 
-            _transactionsSum += deposit.Amount;
-            _clubAssets = _transactionsSum + marketValue;
-            _clubUnits += purchasedUnits;
+        private float? CalculateUnitValue(float? marketAssets)
+        {
+            if (marketAssets == null)
+                throw new ArgumentNullException(nameof(marketAssets));
+
+            if (_clubUnits == null)
+                return 100.0f;
+
+            return (_transactionsSum + marketAssets) / _clubUnits;
+        }
+
+        //private void CalculateAccountAssets(float? transaction)
+        //{
+        //    if (_transactionsSum == null)
+        //    {
+        //        _transactionsSum = transaction;
+        //    }
+        //}
+        
+        private Subscription AccountDeposit(Transaction transaction)
+        {
+            var marketAssets = CalculateMarketAssets(transaction.Date);
+            var unitValue = CalculateUnitValue(marketAssets);
+
+            var purchasedUnits = transaction.Amount / unitValue;
+            _transactionsSum = _transactionsSum == null ? transaction.Amount : _transactionsSum + transaction.Amount;
+            _clubAssets = _transactionsSum + marketAssets;
+            _clubUnits = _clubUnits == null ? purchasedUnits : _clubUnits + purchasedUnits;
             
             return new Subscription
             {
-                Date = deposit.Date,
-                Member = deposit.Name,
-                Payment = deposit.Amount,
+                Date = transaction.Date,
+                Member = transaction.Description,
+                Payment = transaction.Amount,
                 PurchasedUnits = purchasedUnits,
                 ClubAssets = _clubAssets,
                 ClubUnits = _clubUnits,
                 UnitValue = unitValue,
-                MarketValue = marketValue
+                MarketValue = marketAssets
             };
         }
     }

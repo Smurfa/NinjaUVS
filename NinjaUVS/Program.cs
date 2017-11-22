@@ -4,7 +4,6 @@ using System.Linq;
 using DataUtilities;
 using DataUtilities.Csv;
 using DataUtilities.Models;
-using DataUtilities.Models.Transactions;
 using NLog;
 
 namespace NinjaUVS
@@ -13,7 +12,7 @@ namespace NinjaUVS
     {
         private static readonly ILogger Logger = LogManager.GetCurrentClassLogger();
         private static IDictionary<string, IEnumerable<ShareHistoryPoint>> _shares;
-        private static IEnumerable<TransactionBase> _transactions;
+        private static IEnumerable<Transaction> _transactions;
 
         private static IEnumerable<Subscription> _subscriptions;
         private static IEnumerable<Ownership> _ownerships;
@@ -59,8 +58,8 @@ namespace NinjaUVS
                 .Select(subscription => new Ownership
                 {
                     Name = subscription.Member,
-                    Paid = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => current + next.Payment),
-                    Units = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => current + next.PurchasedUnits)
+                    Paid = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => (float) (current + next.Payment)),
+                    Units = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => (float) (current + next.PurchasedUnits))
                 })
                 .ToList();
         }
