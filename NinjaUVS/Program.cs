@@ -58,8 +58,10 @@ namespace NinjaUVS
                 .Select(subscription => new Ownership
                 {
                     Name = subscription.Member,
-                    Paid = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => (float) (current + next.Payment)),
-                    Units = subscriptions.Where(x => x.Member == subscription.Member).Aggregate(0.0f, (current, next) => (float) (current + next.PurchasedUnits))
+                    Paid = subscriptions.Where(x => x.Member == subscription.Member)
+                        .Aggregate<Subscription, float?>(0.0f, (current, next) => (current + next.Payment)),
+                    Units = subscriptions.Where(x => x.Member == subscription.Member)
+                        .Aggregate<Subscription, float?>(0.0f, (current, next) => (current + next.PurchasedUnits))
                 })
                 .ToList();
         }
