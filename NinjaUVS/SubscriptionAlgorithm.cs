@@ -54,7 +54,7 @@ namespace NinjaUVS
                         }
                     case TransactionType.Dividend:
                         {
-                            AdjustDividend(transaction);
+                            AdjustDividend(transaction.Amount);
                             break;
                         }
                     default:
@@ -67,9 +67,9 @@ namespace NinjaUVS
             return subscriptions;
         }
 
-        private void AdjustDividend(Transaction transaction)
+        private void AdjustDividend(float? amount)
         {
-            _transactionsSum += transaction.Amount;
+            _accountAssets += amount ?? throw new ArgumentNullException(nameof(amount));
         }
 
         private void MarketBuySell(Transaction transaction)
