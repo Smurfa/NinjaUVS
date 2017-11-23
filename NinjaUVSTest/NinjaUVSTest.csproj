@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataUtilities\TestNanNullFloatConverter.cs" />
+    <Compile Include="DataUtilities\TestNanNullIntConverter.cs" />
     <Compile Include="DataUtilities\TestTransactionTypeConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataUtilities\TestGetShareNameFromFilepath.cs" />

@@ -1,4 +1,6 @@
-﻿using CsvHelper;
+﻿using System.Globalization;
+using System.Linq;
+using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.TypeConversion;
 
@@ -13,7 +15,7 @@ namespace DataUtilities.Csv
 
         public object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
-            if (int.TryParse(text, out var value))
+            if (int.TryParse(text?.Split('.', ',').First(), NumberStyles.Integer, CultureInfo.InvariantCulture, out var value))
                 return value;
 
             return null;
