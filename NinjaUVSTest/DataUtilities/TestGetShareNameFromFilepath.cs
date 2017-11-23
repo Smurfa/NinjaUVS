@@ -1,12 +1,8 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using DataUtilities;
-using DataUtilities.Csv;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace NinjaUVSTest
+namespace NinjaUVSTest.DataUtilities
 {
     [TestClass]
     public class TestGetShareNameFromFilepath
@@ -15,7 +11,7 @@ namespace NinjaUVSTest
         private const string DummyEnding = @"-2000-01-01.xlsx";
 
         [TestMethod]
-        public void ExtractShareName_AlphabeticCharacters()
+        public void ExtractShareName_AlphabeticCharactersShouldSucceed()
         {
             const string name = @"NXe";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + name + DummyEnding) == name);
@@ -25,21 +21,21 @@ namespace NinjaUVSTest
         }
 
         [TestMethod]
-        public void ExtractShareName_IncludeBlankspace()
+        public void ExtractShareName_IncludeBlankspaceShouldSucceed()
         {
             const string name = @"NX ExK B";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + name + DummyEnding) == name);
         }
 
         [TestMethod]
-        public void ExtractShareName_IncludeAmpersand()
+        public void ExtractShareName_IncludeAmpersandShouldSucceed()
         {
             const string name = @"NX&EB";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + name + DummyEnding) == name);
         }
 
         [TestMethod]
-        public void ExtractShareName_Alphanumeric()
+        public void ExtractShareName_AlphanumericShouldSucceed()
         {
             const string name = @"N5XG";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + name + DummyEnding) == name);
@@ -52,13 +48,17 @@ namespace NinjaUVSTest
             const string mixedAmpersandBlankspace = @"NX&E B";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + mixedAmpersandBlankspace + DummyEnding) == mixedAmpersandBlankspace);
 
-            //Verify that the break character is a dash
-            const string dashIsBreaking = @"NX&E-B";
-            Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + dashIsBreaking + DummyEnding) == dashIsBreaking.Split('-').First());
-            
             //Verify by mixing alphanumeric characters with ampersand and blankspace.
             const string alphanumericMixed = @"N5 G&4 B";
             Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + alphanumericMixed + DummyEnding) == alphanumericMixed);
+        }
+
+        [TestMethod]
+        public void ExtractShareName_DashShouldBreak()
+        {
+            //Verify that a dash works as a break character
+            const string dashIsBreaking = @"NX&E-B";
+            Assert.IsTrue(DataLoader.GetShareNameFromFile(DummyPath + dashIsBreaking + DummyEnding) == dashIsBreaking.Split('-').First());
         }
     }
 }
