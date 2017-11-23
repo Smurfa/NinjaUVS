@@ -9,7 +9,7 @@ namespace DataUtilities.Csv
     {
         public string ConvertToString(object value, IWriterRow row, MemberMapData memberMapData)
         {
-            return ((float?) value)?.ToString() ?? "-";
+            return ((float?) value)?.ToString(NumberFormatInfo.CurrentInfo) ?? "-";
         }
 
         public object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)

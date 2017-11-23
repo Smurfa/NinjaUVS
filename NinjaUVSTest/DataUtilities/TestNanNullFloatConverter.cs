@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Globalization;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataUtilities.Csv;
 
-namespace NinjaUVSTest
+namespace NinjaUVSTest.DataUtilities
 {
     [TestClass]
     public class TestNanNullFloatConverter
@@ -39,8 +40,8 @@ namespace NinjaUVSTest
         [TestMethod]
         public void Float_ConvertToString_ValidInputshouldSucceed()
         {
-            var value = 1.5f;
-            Assert.IsTrue(_converter.ConvertToString(value, null, null) == value.ToString());
+            const float value = 1.5f;
+            Assert.IsTrue(_converter.ConvertToString(value, null, null) == value.ToString(NumberFormatInfo.CurrentInfo));
         }
 
         [TestMethod]
