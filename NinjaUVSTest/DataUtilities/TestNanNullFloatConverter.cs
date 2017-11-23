@@ -1,6 +1,4 @@
-﻿using System;
-using CsvHelper.Configuration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataUtilities.Csv;
 
 namespace NinjaUVSTest
@@ -11,20 +9,27 @@ namespace NinjaUVSTest
         private readonly NanNullFloatConverter _converter = new NanNullFloatConverter();
 
         [TestMethod]
-        public void Float_ConvertFromString_NullInput()
+        public void Float_ConvertFromString_NullInputShouldReturnNull()
         {
             Assert.IsNull(_converter.ConvertFromString(null, null, null));
         }
 
         [TestMethod]
-        public void Float_ConvertFromString_ValidInput()
+        public void Float_ConvertFromString_CommaInputShouldSucceed()
         {
             var value = (float?)_converter.ConvertFromString("1,5", null, null);
             Assert.IsTrue(value == 1.5f);
         }
 
         [TestMethod]
-        public void Float_ConvertFromString_InvalidOrEmptyInput()
+        public void Float_ConvertFromString_PointInputShouldSucceed()
+        {
+            var value = (float?)_converter.ConvertFromString("1.5", null, null);
+            Assert.IsTrue(value == 1.5f);
+        }
+
+        [TestMethod]
+        public void Float_ConvertFromString_InvalidOrEmptyInputShouldReturnNull()
         {
             Assert.IsNull(_converter.ConvertFromString("-", null, null));
 
@@ -32,13 +37,14 @@ namespace NinjaUVSTest
         }
 
         [TestMethod]
-        public void Float_ConvertToString_ValidInput()
+        public void Float_ConvertToString_ValidInputshouldSucceed()
         {
-            Assert.IsTrue(_converter.ConvertToString(1.5f, null, null) == "1,5");
+            var value = 1.5f;
+            Assert.IsTrue(_converter.ConvertToString(value, null, null) == value.ToString());
         }
 
         [TestMethod]
-        public void Float_ConvertToString_NullInput()
+        public void Float_ConvertToString_NullInputShouldReturnDash()
         {
             Assert.IsTrue(_converter.ConvertToString(null, null, null) == "-");
         }

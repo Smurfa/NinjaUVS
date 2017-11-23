@@ -55,7 +55,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestNanNullFloatConverter.cs" />
+    <Compile Include="DataUtilities\TestNanNullFloatConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestGetShareNameFromFilepath.cs" />
   </ItemGroup>
